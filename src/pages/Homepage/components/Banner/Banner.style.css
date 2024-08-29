@@ -24,9 +24,10 @@
 .banner-text-area > * {
   z-index: 2;
 }
+
 @media (max-width: 767px) {
   .banner {
-    height: 25vh;
+    height: 35vh;
   }
   .banner-text-area {
     width: 100%;
