@@ -3,6 +3,10 @@ import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import "./MovieCard.style.css";
 import under18 from "./under18.png";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPerson } from "@fortawesome/free-solid-svg-icons";
+import { faStar } from "@fortawesome/free-solid-svg-icons";
+import { faEye } from "@fortawesome/free-solid-svg-icons";
 const MovieCard = ({ movie, index }) => {
   return (
     <div
@@ -20,8 +24,14 @@ const MovieCard = ({ movie, index }) => {
           <Badge bg="danger">{id}</Badge>
         ))}
         <div className="movie-sub">
-          <Badge bg="secondary">평점:{movie.vote_average}</Badge>{" "}
-          <Badge bg="secondary">인기도:{movie.popularity}</Badge>{" "}
+          <div>
+            <FontAwesomeIcon icon={faStar} />
+            {movie.vote_average}
+          </div>
+          <div>
+            <FontAwesomeIcon icon={faEye} />
+            {movie.popularity}
+          </div>
           {movie.adult ? (
             <Badge bg="danger">18세이상 시청 가능</Badge>
           ) : (
