@@ -2,36 +2,43 @@ import React from "react";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import "./MovieCard.style.css";
-import under18 from "./under18.png";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPerson } from "@fortawesome/free-solid-svg-icons";
-import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { faEye } from "@fortawesome/free-solid-svg-icons";
+import { faStar, faEye } from "@fortawesome/free-solid-svg-icons";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-const MovieCard = ({ movie, index }) => {
+import { useNavigate } from "react-router-dom";
+
+const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
+  const navigate = useNavigate();
+
+  const goToMovieDetail = (id) => {
+    navigate(`/movies/${id}`);
+    console.log("Navigating to movie ID:", id);
+  };
+
   const showGenre = (genreIdList) => {
     if (!genreData) return [];
     const genreNameList = genreIdList.map((id) => {
       const genreObj = genreData.find((genre) => genre.id === id);
-      return genreObj.name;
+      return genreObj ? genreObj.name : "Unknown";
     });
     return genreNameList;
   };
+
   return (
     <div
+      onClick={() => goToMovieDetail(movie.id)} // 함수 참조를 전달
       style={{
-        backgroundImage:
-          "url(" +
-          `https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path}` +
-          ")",
+        backgroundImage: `url(https://www.themoviedb.org/t/p/w600_and_h900_bestv2${movie.poster_path})`,
       }}
       className="movie-card"
     >
       <div className="overlay">
         <h1>{movie.title}</h1>
-        {showGenre(movie.genre_ids).map((id) => (
-          <Badge bg="danger">{id}</Badge>
+        {showGenre(movie.genre_ids).map((genreName, index) => (
+          <Badge key={index} bg="danger">
+            {genreName}
+          </Badge>
         ))}
         <div className="movie-sub">
           <div>
