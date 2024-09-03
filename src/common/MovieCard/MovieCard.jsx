@@ -13,7 +13,6 @@ const MovieCard = ({ movie }) => {
 
   const goToMovieDetail = (id) => {
     navigate(`/movies/${id}`);
-    console.log("Navigating to movie ID:", id);
   };
 
   const showGenre = (genreIdList) => {

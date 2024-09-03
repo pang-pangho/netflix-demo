@@ -1,0 +1,17 @@
+.review-container {
+  outline: solid 1px red;
+  padding: 10px;
+  border-radius: 15px;
+  margin-bottom: 2rem;
+}
+.review-author {
+  font-size: 3cqh;
+  padding-bottom: 15px;
+}
+.review-content {
+  padding-bottom: 15px;
+}
+.more-container {
+  font-weight: 700;
+  text-decoration: underline;
+}
