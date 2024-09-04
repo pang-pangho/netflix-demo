@@ -13,17 +13,19 @@ import { useRecommendations } from "../../hooks/useRecommendations";
 import MovieRecommend from "../../common/MovieRecommend/MovieRecommend";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-const MovieDetailPage = () => {
-  const { id: movie_id } = useParams(); // useParams에서 movie_id를 직접 추출
-  const { data, isLoading, isError, error } = useDetailMovie({ movie_id });
+import { useMovieTrailer } from "../../hooks/useMovieTrailer";
 
+const MovieDetailPage = () => {
+  const { id: movie_id } = useParams();
+  const { data, isLoading, isError, error } = useDetailMovie({ movie_id });
   const { data: reviewData } = useReview({ movie_id });
   const { data: RecommendationData } = useRecommendations({ movie_id });
   const { data: genreData } = useMovieGenreQuery();
+  const { data: trailerData } = useMovieTrailer({ movie_id });
+
   const [price, setPrice] = useState("0");
   const [revenue, setRevenue] = useState("0");
   const [isShowReviews, setIsShowReviews] = useState(false);
-  const values = [true, "sm-down", "md-down", "lg-down", "xl-down", "xxl-down"];
   const [fullscreen, setFullscreen] = useState(true);
   const [show, setShow] = useState(false);
 
@@ -31,21 +33,21 @@ const MovieDetailPage = () => {
     setFullscreen(breakpoint);
     setShow(true);
   }
+
+  // 트레일러 비디오 필터링
+  const trailer = trailerData?.find(
+    (video) => video.type === "Trailer" && video.site === "YouTube"
+  );
+
   const swtichShowReviews = () => {
-    console.log(isShowReviews);
-    if (isShowReviews) {
-      setIsShowReviews(false);
-    } else {
-      setIsShowReviews(true);
-    }
+    setIsShowReviews((prev) => !prev);
   };
+
   const formatCurrency = (amount) => {
     let formattedAmount = String(amount).replace(/,/g, "");
-    if (isNaN(formattedAmount)) {
-      return "0";
-    } else {
-      return Number(formattedAmount).toLocaleString("en-US");
-    }
+    return isNaN(formattedAmount)
+      ? "0"
+      : Number(formattedAmount).toLocaleString("en-US");
   };
 
   useEffect(() => {
@@ -59,13 +61,14 @@ const MovieDetailPage = () => {
 
   if (isLoading) {
     return (
-      <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     );
   }
+
   if (isError) {
     return <div>Error: {error.message}</div>;
   }
@@ -74,8 +77,10 @@ const MovieDetailPage = () => {
     if (!genres) return [];
     return genres.map((genre) => genre.name);
   };
+
   return (
     <Container>
+      {/* 영화 상세 정보 */}
       <Row>
         <Col lg={5} xs={12}>
           <Row>
@@ -113,7 +118,7 @@ const MovieDetailPage = () => {
             <hr />
             <div className="badge-container">
               <Badge bg="danger" className="detail-genres-s">
-                Budge
+                Budget
               </Badge>
               <div className="sub-container">$ {price}</div>
             </div>
@@ -139,18 +144,39 @@ const MovieDetailPage = () => {
           <Button className="me-2 mb-2" onClick={() => handleShow(true)}>
             예고편 보기
           </Button>
+          {/* 모달 수정 */}
           <Modal
             show={show}
             fullscreen={fullscreen}
             onHide={() => setShow(false)}
+            centered
+            backdrop="true" // 바깥 클릭 시 모달 닫기 설정
+            dialogClassName="custom-modal"
           >
             <Modal.Header closeButton>
-              <Modal.Title>Modal</Modal.Title>
+              {" "}
+              {/* 닫기 버튼 추가 */}
+              <Modal.Title>예고편</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Modal body content</Modal.Body>
+            <Modal.Body className="p-0 d-flex justify-content-center align-items-center">
+              {trailer ? (
+                <iframe
+                  width="80%" // YouTube 영상 크기 조정
+                  height="80%" // YouTube 영상 크기 조정
+                  src={`https://www.youtube.com/embed/${trailer.key}`}
+                  title="Movie Trailer"
+                  frameBorder="0"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allowFullScreen
+                ></iframe>
+              ) : (
+                <p className="text-white">No Trailer Available</p>
+              )}
+            </Modal.Body>
           </Modal>
         </Col>
       </Row>
+      {/* 리뷰 섹션 */}
       <Row>
         <p onClick={() => swtichShowReviews()} className="review-title">
           <div className="reviews-number">{reviewData?.results.length}</div>
@@ -158,12 +184,13 @@ const MovieDetailPage = () => {
         </p>
         {isShowReviews &&
           reviewData?.results.map((review, index) => (
-            <MovieReview reviewData={review}> </MovieReview>
+            <MovieReview key={index} reviewData={review}></MovieReview>
           ))}
       </Row>
+      {/* 추천 영화 섹션 */}
       <Row>
         {RecommendationData?.results.map((recommend, index) => (
-          <MovieRecommend recommendData={recommend} />
+          <MovieRecommend key={index} recommendData={recommend} />
         ))}
       </Row>
     </Container>
