@@ -8,7 +8,13 @@ import { responsive } from "../../../../constants/responsive";
 const UpcomingMovieSlide = () => {
   const { data, isLoading, error, isError } = useUpcomingMoivesQuery();
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
   if (isError) {
     return <Alert varient="danger">{error.message}</Alert>;

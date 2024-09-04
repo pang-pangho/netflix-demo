@@ -16,6 +16,7 @@ import Modal from "react-bootstrap/Modal";
 const MovieDetailPage = () => {
   const { id: movie_id } = useParams(); // useParams에서 movie_id를 직접 추출
   const { data, isLoading, isError, error } = useDetailMovie({ movie_id });
+
   const { data: reviewData } = useReview({ movie_id });
   const { data: RecommendationData } = useRecommendations({ movie_id });
   const { data: genreData } = useMovieGenreQuery();
@@ -57,9 +58,14 @@ const MovieDetailPage = () => {
   }, [data?.budget, data?.revenue]);
 
   if (isLoading) {
-    return <div>Loading...</div>;
+    return (
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
-
   if (isError) {
     return <div>Error: {error.message}</div>;
   }

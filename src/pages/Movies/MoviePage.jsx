@@ -31,6 +31,15 @@ const MoviePage = () => {
     }
   }, [data, popularData, keyword]);
 
+  if (isLoading) {
+    return (
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
+  }
   // 인기순 정렬 함수
   const doPopularFilter = () => {
     if (filteredData) {

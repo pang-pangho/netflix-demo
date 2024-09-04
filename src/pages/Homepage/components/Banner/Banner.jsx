@@ -5,7 +5,13 @@ import "./Banner.style.css";
 const Banner = () => {
   const { data, isLoading, isError, error } = usePopularMoviesQuery();
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return (
+      <div class="d-flex justify-content-center">
+        <div class="spinner-border" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
   if (isError) {
     <Alert variant="danger">{error.message}</Alert>;
