@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import "./MovieCard.style.css";
