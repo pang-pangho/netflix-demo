@@ -1,26 +1,35 @@
 .banner {
-  height: 56vh;
-  background-position: left;
-  background-repeat: no-repeat;
+  height: 70vh;
+  width: 100%;
+  background-position: center;
   background-size: cover;
+  background-repeat: no-repeat;
+  position: relative; /* Ensure the banner text is positioned correctly */
 }
 
 .banner::before {
   content: "";
-  background: linear-gradient(to top, black, transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
   position: absolute;
+  top: 0;
   left: 0;
-  height: 56vh;
+  height: 100%;
   width: 100%;
+  z-index: 1;
 }
+
 .banner-text-area {
+  position: relative;
   width: 36%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100%;
   padding: 2rem;
+  z-index: 2; /* Ensure text appears above the overlay */
+  color: white; /* Ensure text is visible against the background */
 }
+
 .banner-text-area > * {
   z-index: 2;
 }
@@ -31,10 +40,6 @@
   }
   .banner-text-area {
     width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 100%;
     padding: 1.5rem;
   }
 }

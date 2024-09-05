@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import api from "../api";
 
 const fetchPopularMovies = () => {
-  return api.get(`/movie/popular`);
+  return api.get(`/movie/popular?language=ko-KR`);
 };
 
 export const usePopularMoviesQuery = () => {

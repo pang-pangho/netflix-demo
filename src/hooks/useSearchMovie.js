@@ -4,8 +4,8 @@ import api from "../api";
 const fetchSearchMovie = async ({ keyword, page }) => {
   const response = await api.get(
     keyword
-      ? `/search/movie?query=${keyword}&page=${page}`
-      : `/movie/popular?page=${page}`
+      ? `/search/movie?query=${keyword}&page=${page}&language=ko-KR` // language 파라미터 추가
+      : `/movie/popular?page=${page}&language=ko-KR` // language 파라미터 추가
   );
   return response.data; // 여기서 response.data를 반환하여 data만 반환
 };
