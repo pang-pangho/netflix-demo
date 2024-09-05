@@ -4,7 +4,7 @@
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
-  position: relative; /* Ensure the banner text is positioned correctly */
+  position: relative;
 }
 
 .banner::before {
@@ -42,4 +42,36 @@
     width: 100%;
     padding: 1.5rem;
   }
+}
+.play-btn,
+.info-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1.5rem;
+  margin-right: 1rem;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: rgba(234, 203, 203, 0.6);
+  border: none;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 2;
+}
+
+.play-btn:hover,
+.info-btn:hover {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+.play-btn::before {
+  content: "▶";
+  margin-right: 0.5rem;
+}
+
+.info-btn::before {
+  content: "ℹ️"; /* 정보 아이콘 */
+  margin-right: 0.5rem;
 }
