@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Badge from "react-bootstrap/Badge";
 import Stack from "react-bootstrap/Stack";
 import "./MovieCard.style.css";
@@ -10,7 +10,7 @@ import { useNavigate } from "react-router-dom";
 const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
   const navigate = useNavigate();
-
+  console.log(movie);
   const goToMovieDetail = (id) => {
     navigate(`/movies/${id}`);
   };

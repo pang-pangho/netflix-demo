@@ -18,6 +18,7 @@ const AppLayout = () => {
   const goToHome = () => {
     navigate("/");
   };
+
   const goToMovies = () => {
     navigate("/movies");
   };

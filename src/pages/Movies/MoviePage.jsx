@@ -25,7 +25,11 @@ const MoviePage = () => {
 
   useEffect(() => {
     if (keyword) {
-      setFilteredData(data);
+      if (data?.results?.length === 0) {
+        setFilteredData(data);
+      } else {
+        setFilteredData(data);
+      }
     } else {
       setFilteredData(popularData);
     }
@@ -33,17 +37,18 @@ const MoviePage = () => {
 
   if (isLoading) {
     return (
-      <div class="d-flex justify-content-center">
-        <div class="spinner-border" role="status">
-          <span class="visually-hidden">Loading...</span>
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
         </div>
       </div>
     );
   }
+
   // 인기순 정렬 함수
   const doPopularFilter = () => {
     if (filteredData) {
-      const sortedMovies = [...filteredData.results].sort(
+      const sortedMovies = [...(filteredData.results || [])].sort(
         (a, b) => b.popularity - a.popularity
       );
       setFilteredData({ ...filteredData, results: sortedMovies });
@@ -53,7 +58,7 @@ const MoviePage = () => {
   // 장르별 필터링
   const handleGenreFilter = () => {
     if (selectedGenre && popularData) {
-      const filteredMovies = popularData.results.filter((movie) =>
+      const filteredMovies = (popularData.results || []).filter((movie) =>
         movie.genre_ids.includes(selectedGenre)
       );
       setFilteredData({ ...popularData, results: filteredMovies });
@@ -78,11 +83,17 @@ const MoviePage = () => {
         </Col>
         <Col lg={8} xs={12}>
           <Row>
-            {filteredData?.results.map((movie, index) => (
-              <Col key={index}>
-                <MovieCard movie={movie}></MovieCard>
+            {filteredData?.results?.length > 0 ? (
+              filteredData.results.map((movie, index) => (
+                <Col key={index}>
+                  <MovieCard movie={movie}></MovieCard>
+                </Col>
+              ))
+            ) : (
+              <Col>
+                <p className="no-results">검색 결과가 없습니다.</p>
               </Col>
-            ))}
+            )}
           </Row>
         </Col>
       </Row>
@@ -92,7 +103,7 @@ const MoviePage = () => {
           onPageChange={handlePageClick}
           pageRangeDisplayed={4}
           marginPagesDisplayed={0}
-          pageCount={filteredData?.total_pages}
+          pageCount={filteredData?.total_pages || 0}
           previousLabel="< previous"
           pageClassName="page-item"
           pageLinkClassName="page-link"
