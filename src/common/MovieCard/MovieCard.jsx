@@ -10,7 +10,6 @@ import { useNavigate } from "react-router-dom";
 const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
   const navigate = useNavigate();
-  console.log(movie);
   const goToMovieDetail = (id) => {
     navigate(`/movies/${id}`);
   };
@@ -33,7 +32,7 @@ const MovieCard = ({ movie }) => {
       className="movie-card"
     >
       <div className="overlay">
-        <h1>{movie.title}</h1>
+        <h2>{movie.title}</h2>
         {showGenre(movie.genre_ids).map((genreName, index) => (
           <Badge key={index} bg="danger">
             {genreName}

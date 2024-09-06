@@ -4,6 +4,7 @@
   background-size: cover;
   cursor: pointer;
   transition: all 0.5s linear;
+  margin-top: 15px;
 }
 .movie-card:hover {
   transform: scale(1.1, 1.1);

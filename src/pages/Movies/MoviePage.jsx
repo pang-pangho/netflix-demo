@@ -18,8 +18,9 @@ const MoviePage = () => {
   const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
     page,
+    genreData,
   });
-  const [filteredData, setFilteredData] = useState(null);
+  const [filteredData, setFilteredData] = useState(data);
   const [showModal, setShowModal] = useState(false);
   const [selectedGenre, setSelectedGenre] = useState(null);
 
@@ -31,10 +32,9 @@ const MoviePage = () => {
         setFilteredData(data);
       }
     } else {
-      setFilteredData(popularData);
+      setFilteredData(data);
     }
   }, [data, popularData, keyword]);
-
   if (isLoading) {
     return (
       <div className="d-flex justify-content-center">
@@ -57,16 +57,17 @@ const MoviePage = () => {
 
   // 장르별 필터링
   const handleGenreFilter = () => {
-    if (selectedGenre && popularData) {
-      const filteredMovies = (popularData.results || []).filter((movie) =>
+    if (selectedGenre && filteredData) {
+      const filteredMovies = (filteredData.results || []).filter((movie) =>
         movie.genre_ids.includes(selectedGenre)
       );
-      setFilteredData({ ...popularData, results: filteredMovies });
+      setFilteredData({ ...filteredData, results: filteredMovies });
     }
     setShowModal(false);
   };
 
   const handlePageClick = ({ selected }) => {
+    setSelectedGenre(null);
     setPage(selected + 1);
   };
 
