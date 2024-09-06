@@ -11,7 +11,7 @@ const MovieCard = ({ movie }) => {
   const { data: genreData } = useMovieGenreQuery();
   const navigate = useNavigate();
   const goToMovieDetail = (id) => {
-    navigate(`/movies/${id}`);
+    navigate(`/app/movies/${id}`);
   };
 
   const showGenre = (genreIdList) => {

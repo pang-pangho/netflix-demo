@@ -10,18 +10,18 @@ import NetflixLogo from "./netflixLogo.png";
 const AppLayout = () => {
   const searchByKeyword = (event) => {
     event.preventDefault();
-    navigate(`/movies?q=${keyword}`);
+    navigate(`/app/movies?q=${keyword}`);
     setKeyword("");
   };
 
   const [keyword, setKeyword] = useState();
   const navigate = useNavigate();
   const goToHome = () => {
-    navigate("/");
+    navigate("/app");
   };
 
   const goToMovies = () => {
-    navigate("/movies");
+    navigate("/app/movies");
   };
   return (
     <div>

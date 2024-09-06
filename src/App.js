@@ -7,17 +7,22 @@ import MoviePage from "./pages/Movies/MoviePage";
 import MovieDetailPage from "./pages/MovieDetail/MovieDetailPage";
 import NotFoundPage from "./pages/NotFoundpage/NotFoundPage";
 import "bootstrap/dist/css/bootstrap.min.css";
+import LoginPage from "./loginPage/LoginPage";
+
 function App() {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<AppLayout />}>
+        <Route path="/" element={<LoginPage />} />
+
+        <Route path="/app" element={<AppLayout />}>
           <Route index element={<Homepage />} />
           <Route path="movies">
             <Route index element={<MoviePage />} />
             <Route path=":id" element={<MovieDetailPage />} />
           </Route>
         </Route>
+
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </div>

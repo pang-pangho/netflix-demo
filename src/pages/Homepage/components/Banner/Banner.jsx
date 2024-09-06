@@ -21,7 +21,7 @@ const Banner = () => {
 
   // 상세 정보 페이지로 이동
   const goToDetail = (id) => {
-    navigate(`/movies/${id}`);
+    navigate(`/app/movies/${id}`);
   };
   const trailer = trailerData?.find(
     (video) => video.type === "Trailer" && video.site === "YouTube"

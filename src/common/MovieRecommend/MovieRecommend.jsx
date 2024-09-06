@@ -7,7 +7,7 @@ const MovieRecommend = ({ recommendData }) => {
   const navigate = useNavigate();
 
   const goToMovieDetail = (id) => {
-    navigate(`/movies/${id}`);
+    navigate(`/app/movies/${id}`);
   };
 
   return (

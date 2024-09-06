@@ -1,0 +1,42 @@
+.not-found-container {
+  background-image: url("https://occ-0-8158-993.1.nflxso.net/dnm/api/v6/6AYY37jfdO6hpXcMjf9Yu5cnmO0/AAAABQ6cJFUHH4YLbe_WB1rF40GHaYOpEtHoBlsOlud2Z73bbtltn7HgaorDDmXMJMICj5t_5KkX34xGeOQuilS_VG7VwkiTfEdFtBE6.jpg"); /* 배경 이미지 URL을 실제 경로로 변경하세요 */
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  text-align: center;
+  padding: 20px;
+}
+
+.not-found-title {
+  font-size: 3rem;
+  font-weight: bold;
+  margin-bottom: 10px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.not-found-text {
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.go-home-button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #e50914;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease;
+}
+
+.go-home-button:hover {
+  background-color: #f40612;
+}
