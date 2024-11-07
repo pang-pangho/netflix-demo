@@ -44,16 +44,6 @@ const Banner = () => {
     }
   }, [isTrailerLoading, trailerData, selectedMovieId]);
 
-  if (isLoading) {
-    return (
-      <div className="d-flex justify-content-center">
-        <div className="spinner-border" role="status">
-          <span className="visually-hidden">Loading...</span>
-        </div>
-      </div>
-    );
-  }
-
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
