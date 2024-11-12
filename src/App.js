@@ -8,12 +8,14 @@ import MovieDetailPage from "./pages/MovieDetail/MovieDetailPage";
 import NotFoundPage from "./pages/NotFoundpage/NotFoundPage";
 import "bootstrap/dist/css/bootstrap.min.css";
 import LoginPage from "./loginPage/LoginPage";
+import Signup from "./loginPage/Signup/Signup";
 
 function App() {
   return (
     <div className="App">
       <Routes>
         <Route path="/" element={<LoginPage />} />
+        <Route path="/signup" element={<Signup />} />
 
         <Route path="/app" element={<AppLayout />}>
           <Route index element={<Homepage />} />
