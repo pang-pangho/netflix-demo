@@ -48,17 +48,18 @@ const MoviePage = () => {
   // 인기순 정렬 함수
   const doPopularFilter = () => {
     if (filteredData) {
-      const sortedMovies = [...(filteredData.results || [])].sort(
+      const sortedMovies = [...(popularData.results || [])].sort(
         (a, b) => b.popularity - a.popularity
       );
       setFilteredData({ ...filteredData, results: sortedMovies });
+      setSelectedGenre(null);
     }
   };
 
   // 장르별 필터링
   const handleGenreFilter = () => {
-    if (selectedGenre && filteredData) {
-      const filteredMovies = (filteredData.results || []).filter((movie) =>
+    if (selectedGenre && popularData) {
+      const filteredMovies = (popularData.results || []).filter((movie) =>
         movie.genre_ids.includes(selectedGenre)
       );
       setFilteredData({ ...filteredData, results: filteredMovies });
